@@ -1,64 +1,51 @@
-const CACHE_NAME = 'virtualsim-v2';
-const ASSETS = [
-    './',
-    'index.php',
-    'style-v1.css',
-    'app.js',
+const CACHE_NAME = 'virtualsim-v3';
+const STATIC_ASSETS = [
     'manifest.json',
+    'icon-192.png',
+    'icon-512.png',
     'icon.png'
 ];
 
-// Install Event - cache assets
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
-            .then(cache => {
-                console.log('[Service Worker] Salvando recursos no cache');
-                return cache.addAll(ASSETS);
-            })
+            .then(cache => cache.addAll(STATIC_ASSETS))
             .then(() => self.skipWaiting())
     );
 });
 
-// Activate Event - clean old caches
 self.addEventListener('activate', event => {
     event.waitUntil(
-        caches.keys().then(keys => {
-            return Promise.all(
-                keys.map(key => {
-                    if (key !== CACHE_NAME) {
-                        console.log('[Service Worker] Removendo cache antigo', key);
-                        return caches.delete(key);
-                    }
-                })
-            );
-        }).then(() => self.clients.claim())
+        caches.keys()
+            .then(keys => Promise.all(keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))))
+            .then(() => self.clients.claim())
     );
 });
 
-// Fetch Event - cache-first with network fallback for assets, avoiding API routes
 self.addEventListener('fetch', event => {
-    // Não interceptar chamadas da API local ou webhooks
-    if (event.request.url.includes('/api/') || event.request.url.includes('sms.php') || event.request.method !== 'GET') {
+    const req = event.request;
+    if (req.method !== 'GET') return;
+
+    const url = new URL(req.url);
+    if (url.origin !== self.location.origin) return;
+    if (url.pathname.includes('/api/') || url.pathname.endsWith('.php') || url.searchParams.has('v')) {
+        return; // Always go straight to network for API, PHP pages, and versioned assets
+    }
+
+    if (req.mode === 'navigate') {
+        event.respondWith(
+            fetch(req).catch(() => caches.match('./'))
+        );
         return;
     }
 
     event.respondWith(
-        caches.match(event.request)
-            .then(cachedResponse => {
-                if (cachedResponse) {
-                    return cachedResponse;
-                }
-                return fetch(event.request).then(networkResponse => {
-                    // Ignorar requisições externas como extensões do Chrome
-                    if (!event.request.url.startsWith('http')) {
-                        return networkResponse;
-                    }
-                    return caches.open(CACHE_NAME).then(cache => {
-                        cache.put(event.request, networkResponse.clone());
-                        return networkResponse;
-                    });
-                });
-            })
+        caches.match(req).then(cached => cached || fetch(req).then(res => {
+            if (res && res.ok) {
+                const copy = res.clone();
+                caches.open(CACHE_NAME).then(c => c.put(req, copy));
+            }
+            return res;
+        }))
     );
 });

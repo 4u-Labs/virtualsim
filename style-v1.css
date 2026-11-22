@@ -1140,3 +1140,433 @@ html, body {
         text-shadow: 0 0 0 rgba(14, 165, 233, 0.4);
     }
 }
+
+/* ==========================================================================
+   VirtualSim v2 Enhancements (Stock Badges, Tabs, History, 4u-Labs Modal)
+   ========================================================================== */
+.service-price-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.stock-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: 999px;
+    letter-spacing: 0.01em;
+}
+
+.stock-badge.stock-ok {
+    background: rgba(34, 197, 94, 0.14);
+    color: #4ade80;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.stock-badge.stock-empty {
+    background: rgba(239, 68, 68, 0.14);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.stock-badge.stock-loading {
+    background: rgba(148, 163, 184, 0.12);
+    color: #94a3b8;
+    border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.panel-tabs {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 16px;
+    padding: 4px;
+    background: rgba(15, 23, 42, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+}
+
+.panel-tab-btn {
+    flex: 1;
+    border: 0;
+    background: transparent;
+    color: var(--text-muted);
+    font-size: 12px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.panel-tab-btn:hover {
+    color: var(--text-main);
+}
+
+.panel-tab-btn.active {
+    background: rgba(14, 165, 233, 0.2);
+    color: #38bdf8;
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.35);
+}
+
+.tab-count {
+    background: rgba(255, 255, 255, 0.12);
+    color: inherit;
+    font-size: 10px;
+    padding: 1px 6px;
+    border-radius: 999px;
+}
+
+.history-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.history-item {
+    background: rgba(15, 23, 42, 0.65);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.history-item-main {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.history-item-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.history-item-sub {
+    font-size: 11px;
+    color: var(--text-muted);
+}
+
+.history-code-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(34, 197, 94, 0.15);
+    border: 1px solid rgba(34, 197, 94, 0.35);
+    color: #4ade80;
+    font-weight: 700;
+    font-family: monospace;
+    font-size: 13px;
+    padding: 4px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.history-status-pill {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 999px;
+}
+
+.history-status-pill.status-approved,
+.history-status-pill.status-received {
+    background: rgba(34, 197, 94, 0.14);
+    color: #4ade80;
+}
+
+.history-status-pill.status-canceled {
+    background: rgba(148, 163, 184, 0.14);
+    color: #94a3b8;
+}
+
+.history-status-pill.status-pending {
+    background: rgba(234, 179, 8, 0.16);
+    color: #facc15;
+}
+
+.number-actions-group {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    flex-shrink: 0;
+}
+
+.btn-copy-local {
+    font-size: 11px !important;
+    padding: 6px 9px !important;
+    white-space: nowrap;
+}
+
+.package-badge-popular {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 2px 7px;
+    font-size: 10px;
+    font-weight: 700;
+    border-radius: 999px;
+    background: rgba(14, 165, 233, 0.22);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    vertical-align: middle;
+}
+
+.labs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin: 14px 0 6px;
+}
+
+.labs-grid a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 9px 10px;
+    border-radius: 9px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(56, 189, 248, 0.22);
+    color: #e2e8f0;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.labs-grid a:hover {
+    border-color: #38bdf8;
+    background: rgba(14, 165, 233, 0.16);
+    color: #ffffff;
+}
+
+.labs-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+.footer-social-links {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px 14px;
+}
+
+/* ==========================================================================
+   VirtualSim v2.1 Visual Upgrades & Google Sign-In
+   ========================================================================== */
+.logo-img {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    object-fit: cover;
+    border: 1px solid rgba(56, 189, 248, 0.4);
+    box-shadow: 0 0 14px rgba(14, 165, 233, 0.35);
+    flex-shrink: 0;
+}
+
+.user-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(56, 189, 248, 0.45);
+    flex-shrink: 0;
+}
+
+.trust-strip {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px 14px;
+    margin-bottom: 22px;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, rgba(14, 165, 233, 0.08), rgba(15, 23, 42, 0.72), rgba(34, 197, 94, 0.08));
+    border: 1px solid rgba(56, 189, 248, 0.18);
+    border-radius: 12px;
+}
+
+.trust-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #cbd5e1;
+    white-space: nowrap;
+}
+
+.trust-pill i {
+    color: #38bdf8;
+    font-size: 12px;
+}
+
+.btn-google {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 11px 16px;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    background: #ffffff;
+    color: #111827;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-google:hover {
+    background: #f8fafc;
+    box-shadow: 0 6px 20px rgba(56, 189, 248, 0.22);
+    transform: translateY(-1px);
+}
+
+.btn-google:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.btn-google svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.auth-divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.panel-faq {
+    margin-top: 24px;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.faq-item {
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    overflow: hidden;
+    transition: border-color 0.2s ease;
+}
+
+.faq-item[open] {
+    border-color: rgba(56, 189, 248, 0.35);
+}
+
+.faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 12px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-main);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: '+';
+    font-size: 16px;
+    font-weight: 700;
+    color: #38bdf8;
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+    content: '−';
+}
+
+.faq-item p {
+    padding: 0 14px 13px;
+    font-size: 12.5px;
+    line-height: 1.55;
+    color: var(--text-muted);
+}
+
+.guarantee-box {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: rgba(34, 197, 94, 0.09);
+    border: 1px solid rgba(34, 197, 94, 0.28);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: #cbd5e1;
+}
+
+.guarantee-box i {
+    color: #4ade80;
+    font-size: 16px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+    .trust-strip {
+        justify-content: flex-start;
+        padding: 10px 12px;
+        gap: 6px 12px;
+    }
+    .trust-pill {
+        font-size: 11px;
+    }
+}
